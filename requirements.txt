@@ -1,0 +1,15 @@
+pandas>=2.2,<3.1
+transformers>=4.45,<5
+anthropic>=0.40
+torch>=2.2+cu124 --index-url https://download.pytorch.org/whl/cu124 # requires CUDA 12.4 compatible GPU; for CPU-only remove --index-url flag
+textstat>=0.7
+datasets>=2.0
+sentence-transformers>=3.0,<4
+umap-learn>=0.5,<0.6
+hdbscan>=0.8,<0.9
+scikit-learn>=1.4,<2
+jsonschema>=4.0
+tqdm>=4.0
+matplotlib>=3.8,<4
+faiss-cpu>=1.7,<2
+scipy>=1.12,<2

@@ -1,0 +1,82 @@
+# ---------------------------------------------------------------------------
+# Data: exclude raw + intermediate pipeline data (large, possibly licensed),
+# but KEEP the small precomputed artifacts the app needs (data/viz/).
+# ---------------------------------------------------------------------------
+data/*
+!data/viz/
+data/viz/*
+# keep only the artifacts the app reads:
+!data/viz/article_table.parquet
+!data/viz/cluster_meta.parquet
+!data/viz/cluster_publisher.parquet
+!data/viz/cluster_week.parquet
+!data/viz/entity_index.parquet
+!data/viz/entity_vocab.parquet
+!data/viz/entity_article_bridge.parquet
+!data/viz/slot_fillers.parquet
+!data/viz/entity_ftype.parquet
+!data/viz/cluster_centroids.npy
+!data/viz/cluster_centroid_keys.parquet
+!data/viz/search_meta.json
+!data/viz/map_xy.parquet
+!data/viz/map_centroids.parquet
+# entity_embeddings.npy (~389 MB) is intentionally NOT committed: it exceeds
+# GitHub's 100 MB file limit. Regenerate it by running 07_precompute.ipynb
+# (semantic entity search stays disabled until it is present locally).
+data/viz/entity_embeddings.npy
+# committed so THEMATIC search can scope card numbers to matching articles in
+# the deployed app (query-vs-article similarity needs the per-article vectors):
+!data/viz/narrative_emb_small.npy
+!data/viz/narrative_emb_ids.npy
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+.env
+
+# ---------------------------------------------------------------------------
+# Models / caches (downloaded at runtime, never committed)
+# ---------------------------------------------------------------------------
+*.bin
+*.safetensors
+.cache/
+models/
+
+# ---------------------------------------------------------------------------
+# OS / editor
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ---------------------------------------------------------------------------
+# Generated figures (regenerable output, not committed)
+# ---------------------------------------------------------------------------
+figures/
+
+# ---------------------------------------------------------------------------
+# Local scratch / prototypes / debug (never committed)
+# ---------------------------------------------------------------------------
+_patch_*.py
+_split_card.py
+prototype_viz*.py
+debug_*.py
+debug_*.json
+*_v[0-9]*.html
+
+# ---------------------------------------------------------------------------
+# Report (uploaded separately) + Word/Office temp files
+# ---------------------------------------------------------------------------
+report/
+*.docx
+~$*
+*.tmp
+~WRL*.tmp

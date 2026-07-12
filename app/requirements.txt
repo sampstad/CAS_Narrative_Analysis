@@ -1,0 +1,16 @@
+# App-only dependencies for Streamlit Community Cloud deployment.
+# Deliberately lean — the app does NOT need the pipeline deps (umap, hdbscan,
+# scikit-learn, etc.). Only what the four views + semantic search require.
+
+streamlit>=1.40
+pandas>=2.0
+numpy>=1.24
+pyarrow>=14.0
+plotly>=5.20
+
+# Semantic search: sentence-transformers pulls torch. Pin the CPU-only torch
+# build to stay within the free-tier RAM/image budget (no CUDA libraries).
+# On Streamlit Community Cloud, the --extra-index-url line is honoured.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.2
+sentence-transformers>=2.7

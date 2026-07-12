@@ -1,0 +1,10 @@
+name: cas-narrative-analysis
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - ipykernel>=6.29
+  - jupyter>=1.0
+  - pip:
+      - -r requirements.txt

@@ -1,0 +1,8 @@
+# Normalise line endings: store text files as LF in the repository.
+* text=auto eol=lf
+
+# Binary artifacts — no line-ending conversion, no textual diff.
+*.parquet binary
+*.npy     binary
+*.png     binary
+*.jsonl   binary

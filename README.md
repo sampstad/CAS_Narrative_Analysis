@@ -18,6 +18,10 @@ The repository has two parts:
 
 ## The app
 
+**Live app: [swiss-narrative-analysis.streamlit.app](https://swiss-narrative-analysis.streamlit.app/)** — no install required.
+
+To run it locally:
+
 ```bash
 pip install -r app/requirements.txt
 streamlit run app/app.py

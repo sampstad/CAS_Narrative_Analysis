@@ -53,13 +53,14 @@ app-only set is in `app/requirements.txt`. A conda environment is provided in
 
 Raw and intermediate pipeline data under `data/` is **not** committed (large and
 possibly licensed). The small precomputed artifacts the app needs are committed
-under `data/viz/`, with one exception:
+under `data/viz/`, including the search embeddings:
 
-- **`data/viz/entity_embeddings.npy` (~389 MB)** is not committed because it exceeds
-  GitHub's 100 MB file limit. Regenerate it by running `07_precompute.ipynb`.
-  Until it is present, semantic entity search is disabled; the rest of the app
-  (cluster map, narrative cards, entity vocabulary search, comparison) works from
-  the committed artifacts.
+- **`data/viz/entity_embeddings.npy` (~78 MB)** is committed int8-quantized and
+  trimmed to entities appearing in at least two aggregated rows
+  (`total_articles >= 2`). The full float32 build (~389 MB) exceeds GitHub's
+  100 MB limit, so the app dequantizes these on load. This keeps semantic entity
+  search fully working on the deployed app with no local precompute; only very
+  rare single-mention entities are excluded from semantic (not exact) search.
 
 ## Repository layout
 

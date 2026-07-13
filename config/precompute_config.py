@@ -78,11 +78,15 @@ E5_PASSAGE_PREFIX = "passage: "
 # Search outputs
 ENTITY_INDEX      = "data/viz/entity_index.parquet"       # entity x level x cluster x slot counts
 ENTITY_VOCAB      = "data/viz/entity_vocab.parquet"       # distinct entities + aggregate stats
-ENTITY_EMBEDDINGS = "data/viz/entity_embeddings.npy"      # one row per entity_vocab row
+ENTITY_EMBEDDINGS = "data/viz/entity_embeddings.npy"      # one row per entity_vocab row (int8-quantized, freq-trimmed)
 ENTITY_ARTICLE_BRIDGE = "data/viz/entity_article_bridge.parquet"  # (label, id) for entity scoping
 CLUSTER_CENTROIDS = "data/viz/cluster_centroids.npy"      # thematic search: centroid per cluster
 CLUSTER_CENTROID_KEYS = "data/viz/cluster_centroid_keys.parquet"  # level+cluster per centroid row
 SEARCH_META       = "data/viz/search_meta.json"           # records model used to build embeddings
+# entity_embeddings is committed for the deployed app: int8-quantized (unit
+# vectors x127) and trimmed to the top entities (total_articles >= this floor)
+# so it stays under GitHub's file-size limit. entity_vocab stays complete.
+ENTITY_EMB_MIN_ARTICLES = 2
 # Search behaviour
 # e5-small is coarser than e5-large, so a lower default threshold catches the
 # same matches. Env-configurable for tuning against real results.

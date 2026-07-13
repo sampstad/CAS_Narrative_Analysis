@@ -76,7 +76,16 @@ def load_entity_vocab() -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_entity_embeddings() -> np.ndarray:
-    return np.load(_p("entity_embeddings.npy"))
+    # Stored int8-quantized (unit vectors x127) to stay under GitHub's size
+    # limit; dequantize and renormalize back to unit vectors for search.
+    # Older float32 files are returned as-is for backward compatibility.
+    raw = np.load(_p("entity_embeddings.npy"))
+    if raw.dtype == np.int8:
+        emb = raw.astype(np.float32) / 127.0
+        norms = np.linalg.norm(emb, axis=1, keepdims=True)
+        np.divide(emb, norms, out=emb, where=norms > 0)
+        return emb
+    return raw
 
 
 @st.cache_resource(show_spinner="Loading search model…")

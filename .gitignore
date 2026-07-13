@@ -20,10 +20,10 @@ data/viz/*
 !data/viz/search_meta.json
 !data/viz/map_xy.parquet
 !data/viz/map_centroids.parquet
-# entity_embeddings.npy (~389 MB) is intentionally NOT committed: it exceeds
-# GitHub's 100 MB file limit. Regenerate it by running 07_precompute.ipynb
-# (semantic entity search stays disabled until it is present locally).
-data/viz/entity_embeddings.npy
+# entity_embeddings.npy is committed int8-quantized and trimmed to entities
+# with total_articles >= 2 (~78 MB), so semantic entity search works out of the
+# box on the deployed app without any local precompute:
+!data/viz/entity_embeddings.npy
 # committed so THEMATIC search can scope card numbers to matching articles in
 # the deployed app (query-vs-article similarity needs the per-article vectors):
 !data/viz/narrative_emb_small.npy
